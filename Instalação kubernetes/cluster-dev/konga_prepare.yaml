@@ -1,0 +1,52 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: konga-prepare
+  namespace: kong-dev
+  labels:
+    app: konga-prepare
+spec:
+  containers:
+  - name: konga-prepare
+    image: pantsel/konga:latest
+    command:
+      - 'c prepare -a postgres -u postgresql://kong:2MQMp5CxTN@kong-postgresql/konga_db'
+     
+
+# kind: ConfigMap
+# apiVersion: v1
+# metadata:
+#   name: konga-configmap
+# data:
+#   DB_ADAPTER: postgres
+#   DB_HOST: postgresql.sorteiofire.com.br
+#   DB_USER: kong
+#   DB_PASSWORD: 6LetU25A83
+#   # TOKEN_SECRET: ahfdjgjgf79JKLFHJKh978953kgdfjkl
+#   DB_DATABASE: konga_db
+#   NODE_ENV: production
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: konga-deployment
+#   labels:
+#     app: konga
+# spec:
+#   selector:
+#     matchLabels:
+#       app: konga
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: konga
+#     spec:
+#       containers:
+#       - name: konga-container
+#         image: pantsel/konga:latest
+#         ports:
+#         - containerPort: 1337
+#         envFrom:
+#         - configMapRef:
+#             name: konga-configmap

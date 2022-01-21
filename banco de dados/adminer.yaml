@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer-deployment
+  namespace: adminer
+  labels:
+    app: adminer
+spec:
+  selector:
+    matchLabels:
+      app: adminer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+      - name: adminer-container
+        image: adminer
+        ports:
+        - containerPort: 8080
+# ---
+# kind: Pod
+# apiVersion: v1
+# metadata:
+#   name: adminer
+#   namespace: adminer
+#   labels:
+#     app: adminer
+# spec:
+#   containers:
+#   - name: adminer-container
+#     image: adminer
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: adminer-service
+  namespace: adminer
+spec:
+  selector:
+    app: adminer
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: kong-ingress
+#   # namespace: app-dev
+#   annotations:
+#     nginx.ingress.kubernetes.io/proxy-body-size: 8m
+#     nginx.ingress.kubernetes.io/proxy-connect-timeout: "500"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "500"
+#     nginx.ingress.kubernetes.io/proxy-send-timeout: "500"
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/use-regex: "true"
+# spec:
+#   rules:
+#   - host: kong.sorteiofire.com.br
+#     http:
+#       paths:
+#       - pathType: Prefix
+#         path: /
+#         backend:
+#           service:
+#             name: kong-service
+#             port:
+#               number: 8000

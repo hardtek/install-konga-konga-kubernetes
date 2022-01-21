@@ -1,0 +1,61 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: konga-configmap
+  names
+data:
+  DB_ADAPTER: postgres
+  DB_HOST: postgresql.sorteiofire.com.br
+  DB_USER: kong
+  DB_PASSWORD: 6LetU25A83
+  # TOKEN_SECRET: ahfdjgjgf79JKLFHJKh978953kgdfjkl
+  DB_DATABASE: konga_db
+  NODE_ENV: production
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: konga-deployment
+  labels:
+    app: konga
+spec:
+  selector:
+    matchLabels:
+      app: konga
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: konga
+    spec:
+      containers:
+      - name: konga-container
+        image: pantsel/konga:latest
+        ports:
+        - containerPort: 1337
+        envFrom:
+        - configMapRef:
+            name: konga-configmap
+---
+# kind: Pod
+# apiVersion: v1
+# metadata:
+#   name: konga
+#   labels:
+#     app: konga
+# spec:
+#   containers:
+#   - name: konga-container
+#     image: pantsel/konga:latest
+# ---
+kind: Service
+apiVersion: v1
+metadata:
+  name: konga-service
+spec:
+  selector:
+    app: konga
+  ports:
+    - port: 80
+      targetPort: 1337
+  type: LoadBalancer

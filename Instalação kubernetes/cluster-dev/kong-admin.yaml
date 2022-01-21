@@ -1,0 +1,50 @@
+# kind: Pod
+# apiVersion: v1
+# metadata:
+#   name: app
+#   namespace: app-dev
+#   labels:
+#     app: app
+# spec:
+#   containers:
+#   - name: app-container
+#     image: hashicorp/http-echo:0.2.3
+#     args:
+#     - "-text=foo"
+# ---
+kind: Service
+apiVersion: v1
+metadata:
+  name: kong-admin-service
+spec:
+  selector:
+    app.kubernetes.io/name: kong
+  ports:
+    - port: 8001
+      targetPort: 8001
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kong-admin-ingress
+  # namespace: app-dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 8m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "500"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "500"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "500"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - host: kong-admin.sorteiofire.com.br
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: kong-admin-service
+            port:
+              number: 8001
