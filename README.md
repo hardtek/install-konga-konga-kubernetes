@@ -1,6 +1,6 @@
-# API-GiftCard
+# Implantação Kong + Konga
 
-Intruções para fazer deploy da  KONG e do KONGA.
+Intruções para fazer deploy da  Kong e do Konga.
 
 ## 🚀 Começando
 
