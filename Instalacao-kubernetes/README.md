@@ -38,7 +38,7 @@ helm install -n kong-dev kong bitnami/kong --set service.type=LoadBalancer
 ```
 ### 🔧 Instalação Konga
 ```
-kubectl apply -f konga_prepare.yaml
+kubectl apply -f konga.yaml
 ```
 
 ## 📦 Desenvolvimento
