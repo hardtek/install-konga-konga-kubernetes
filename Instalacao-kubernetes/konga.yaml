@@ -1,61 +1,48 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: konga-configmap
-  names
+  name: teste-configmap
+  namespace: teste-ppclick
 data:
-  DB_ADAPTER: postgres
-  DB_HOST: postgresql.sorteiofire.com.br
-  DB_USER: kong
-  DB_PASSWORD: 6LetU25A83
-  # TOKEN_SECRET: ahfdjgjgf79JKLFHJKh978953kgdfjkl
-  DB_DATABASE: konga_db
-  NODE_ENV: production
+  TOKEN: "ea6689f7e74a44f5bf06f8dbfc4cb655"
+  ELASTIC_URL: "https://search-es-app-ppclick-hml-6rmv6xauifor6bykwl5sujxfli.us-east-1.es.amazonaws.com/"
+  ELASTIC_TYPE: "_doc"
+  ELASTIC_INDEX: "pesquisa"
+  ELASTIC_USER: "administrator"
+  ELASTIC_PASSWORD: "iebah7pheiChioqu2eiP#"
+  CONNECTION_STRING: "amqp://ipiranga:y=wTnRm7qnP@rabbitmqhml.ipirangacloud.com:5672/%2F"
+  MANAGEMENT_HOST: "rabbitmqhml.ipirangacloud.com"
+  MANAGEMENT_PORT: "15672"
+  MANAGEMENT_USER: "ipiranga"
+  MANAGEMENT_PASSWORD: "y=wTnRm7qnP"
+  MANAGEMENT_THRESHOLD: "2"
+  QUEUE_NAME: "pesquisa.preco.hml"
+  SERVER: "BJOERN"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: konga-deployment
+  name: teste-deployment
+  namespace: teste-ppclick
   labels:
-    app: konga
+    app: teste
 spec:
   selector:
     matchLabels:
-      app: konga
+      app: teste
   replicas: 1
   template:
     metadata:
       labels:
-        app: konga
+        app: teste
     spec:
       containers:
-      - name: konga-container
-        image: pantsel/konga:latest
+      - name: teste-container
+        image: atqipp.azurecr.io/pp-click-consumer-release:3e03815
         ports:
-        - containerPort: 1337
+        - containerPort: 8080
         envFrom:
         - configMapRef:
-            name: konga-configmap
----
-# kind: Pod
-# apiVersion: v1
-# metadata:
-#   name: konga
-#   labels:
-#     app: konga
-# spec:
-#   containers:
-#   - name: konga-container
-#     image: pantsel/konga:latest
-# ---
-kind: Service
-apiVersion: v1
-metadata:
-  name: konga-service
-spec:
-  selector:
-    app: konga
-  ports:
-    - port: 80
-      targetPort: 1337
-  type: LoadBalancer
+            name: teste-configmap
+        
+

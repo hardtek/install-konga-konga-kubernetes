@@ -1,11 +1,11 @@
 # Kong + Konga
 
-Intruções para fazer deploy da  Kong e do Kong no Kubernetes.
-
 ## 🚀 Começando
 
 Essas instruções permitirão que você fazer o deploy desse ambiente no Kubernetes.
 
+#### Arquitetura
+![Diagrama](/images/Diagrama-kong.png)
 
 ### 📋 Pré-requisitos
 
