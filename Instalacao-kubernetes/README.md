@@ -33,6 +33,16 @@ helm repo update
 kubectl create namespace kong-dev
 ```
 
+Criar secret para o ACR Azure
+```
+kubectl create namespace kong-dev \
+kubectl create secret docker-registry kong-acr \
+--namespace kong-dev \
+--docker-server=<Registry>.azurecr.io \
+--docker-username=user \
+--docker-password=pass
+```
+
 ```
 helm upgrade -n kong-dev kong bitnami/kong \
 --set service.type=LoadBalancer \
