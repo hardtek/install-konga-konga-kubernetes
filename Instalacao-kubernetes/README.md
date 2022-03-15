@@ -20,7 +20,7 @@ Helm 3
 
 Para execução do projeto é necessario os seguintes passos para ter o ambiente de desenvolvimento em execução.
 
-Faça:
+**Faça**
 
 ```
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -33,7 +33,7 @@ helm repo update
 kubectl create namespace kong-dev
 ```
 
-Criar secret para o ACR Azure
+**Criar secret para o ACR Azure**
 ```
 kubectl create namespace kong-dev \
 kubectl create secret docker-registry kong-acr \
@@ -49,12 +49,7 @@ helm install -n kong-dev kong bitnami/kong \
 --set image.registry=atqipp.azurecr.io \
 --set image.repository=kong-infra \
 --set image.tag=2.8.0 \
---set image.pullSecrets='{"name","kong-acr"}' -f values.yaml \
--f values.yaml 
-
-<!-- --set postgresql.image.tag= \ -->
-
-helm template bitnami/kong
+--set image.pullSecrets='{"name","kong-acr"}' -f values.yaml 
 ```
 ### 🔧 Instalação Konga
 ```
