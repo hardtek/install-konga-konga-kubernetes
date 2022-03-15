@@ -44,7 +44,7 @@ kubectl create secret docker-registry kong-acr \
 ```
 
 ```
-helm upgrade -n kong-dev kong bitnami/kong \
+helm install -n kong-dev kong bitnami/kong \
 --set service.type=LoadBalancer \
 --set image.registry=atqipp.azurecr.io \
 --set image.repository=kong-infra \
