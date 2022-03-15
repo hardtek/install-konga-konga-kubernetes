@@ -2,12 +2,12 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: konga-configmap
-  names
+  namespace: konga-dev
 data:
   DB_ADAPTER: postgres
-  DB_HOST: postgresql.sorteiofire.com.br
+  DB_HOST: kong-postgresql.kong-dev
   DB_USER: kong
-  DB_PASSWORD: 6LetU25A83
+  DB_PASSWORD: 9fgNzJ01ob
   # TOKEN_SECRET: ahfdjgjgf79JKLFHJKh978953kgdfjkl
   DB_DATABASE: konga_db
   NODE_ENV: production
@@ -16,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: konga-deployment
+  namespace: konga-dev
   labels:
     app: konga
 spec:
@@ -52,6 +53,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: konga-service
+  namespace: konga-dev
 spec:
   selector:
     app: konga

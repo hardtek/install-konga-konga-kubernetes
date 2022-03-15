@@ -9,9 +9,9 @@ spec:
   containers:
   - name: konga-prepare
     image: pantsel/konga:latest
-    command:
-      - 'c prepare -a postgres -u postgresql://kong:2MQMp5CxTN@kong-postgresql/konga_db'
-     
+    # command:
+    #   - 'c prepare -a postgres -u postgresql://kong:aSz21gQ1wS@kong-postgresql.kong-dev/konga_db'
+    
 
 # kind: ConfigMap
 # apiVersion: v1

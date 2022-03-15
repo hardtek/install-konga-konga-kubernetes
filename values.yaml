@@ -1,0 +1,32 @@
+
+kong:
+  # image.pullSecrets:
+  #   - name: kong-acr
+  extraEnvVars:
+    # - name: KONG_MIGRATE
+    #   value: "yes"
+    - name: BITNAMI_DEBUG
+      value: "false"
+    - name: KONG_PLUGINS
+      value: "bundled,amqp"
+    - name: KONG_ADMIN_LISTEN
+      value: "0.0.0.0:8001"
+    - name: POSTGRES_HOST_AUTH_METHOD
+      value: "trust"
+    - name: ASSET
+      value: "ce"
+    - name: KONG_VERSION
+      value: "2.8.0"
+    - name: KONG_SSL_CERT
+      value: "/certificado-ipp/gitlab.ipirangacloud.com.crt"
+    - name: KONG_SSL_CERT_KEY
+      value: "/certificado-ipp/gitlab.ipirangacloud.com.key"
+    - name: KONG_ADMIN_SSL_CERT
+      value: "/certificado-ipp/gitlab.ipirangacloud.com.crt"
+    - name: KONG_ADMIN_SSL_CERT_KEY 
+      value: "/certs/gitlab.ipirangacloud.com.key"
+
+      # - name: HOME
+      #   value: "/home/kong"    
+      # - name: KONG_SHA256
+      # value: "2e78dee0e695c238cde7e607e85c2e62e44422b57c626ea12822d15ed898769b"

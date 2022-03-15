@@ -16,6 +16,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: kong-admin-service
+  namespace: kong-dev
 spec:
   selector:
     app.kubernetes.io/name: kong
@@ -24,27 +25,27 @@ spec:
       targetPort: 8001
   type: ClusterIP
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: kong-admin-ingress
-  # namespace: app-dev
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 8m
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "500"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "500"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "500"
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/use-regex: "true"
-spec:
-  rules:
-  - host: kong-admin.sorteiofire.com.br
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: kong-admin-service
-            port:
-              number: 8001
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: kong-admin-ingress
+#   # namespace: app-dev
+#   annotations:
+#     nginx.ingress.kubernetes.io/proxy-body-size: 8m
+#     nginx.ingress.kubernetes.io/proxy-connect-timeout: "500"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "500"
+#     nginx.ingress.kubernetes.io/proxy-send-timeout: "500"
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/use-regex: "true"
+# spec:
+#   rules:
+#   - host: kong-admin.sorteiofire.com.br
+#     http:
+#       paths:
+#       - pathType: Prefix
+#         path: /
+#         backend:
+#           service:
+#             name: kong-admin-service
+#             port:
+#               number: 8001

@@ -34,11 +34,22 @@ kubectl create namespace kong-dev
 ```
 
 ```
-helm install -n kong-dev kong bitnami/kong --set service.type=LoadBalancer
+helm upgrade -n kong-dev kong bitnami/kong \
+--set service.type=LoadBalancer \
+--set image.registry=atqipp.azurecr.io \
+--set image.repository=kong-infra \
+--set image.tag=2.8.0 \
+--set image.pullSecrets='{"name","kong-acr"}' -f values.yaml \
+-f values.yaml 
+
+<!-- --set postgresql.image.tag= \ -->
+
+helm template bitnami/kong
 ```
 ### 🔧 Instalação Konga
 ```
 kubectl apply -f konga.yaml
+
 ```
 
 ## 📦 Desenvolvimento
